@@ -18,34 +18,23 @@ $(document).ready(function(){
     });
 
     //  Data moved to right
-    $(document).on('click', '#btn-move-right', function(){
+    $(document).on('click', '.move-right', function(){
         var row = $(this).closest("tr");
         var text = row.find(".first-column").text();
-        $.ajax({
-            url: "move.php",
-            type: "POST",
-            data: {action: "moveRight", text: text},
-            success: function(response){
-                row.find(".third-column").text(text);
-                row.remove();
-            }
-        });
+        
+        row.find(".first-column").css("visibility", "hidden");
+        row.find(".third-column").text(text);
     });
+
 
     // Data moved to left
-    $(document).on("click", ".move-left", function(){
+    $(document).on('click', '.move-left', function(){
         var row = $(this).closest("tr");
         var text = row.find(".third-column").text();
-        $.ajax({
-            url: "move.php",
-            type: "POST",
-            data: {action: "moveLeft", text: text},
-            success: function(response){
-                var newRow = "<tr><td class='first-column'>" + text + "</td><td><button class='move-right'> >></button></td><td class='third-column'></td></tr>";
-                $("#dataTable").append(newRow);
-                row.remove();
-            }
-        });
+        
+        row.find(".first-column").css("visibility", "visible").text(text);
+        row.find(".third-column").text("");
     });
 
-});
+    });
+
